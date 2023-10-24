@@ -1,0 +1,3 @@
+port: 8080
+cors: "*"
+location: /Users/glebchanskiy/subjects/aipos/kek-application/src/main/resources/static
