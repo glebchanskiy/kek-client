@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    {for eq in equips : {<li>{eq.name} - {eq.description}</li>}}
+    {for eq in equips : {<li>{eq.id} : {eq.name} - {eq.description}</li>}}
 
     <h1>Add equipment:</h1>
     <form method="POST">
@@ -15,18 +15,22 @@
         <input type="text" id="name" name="name" required>
         <label for="description">Equipment description:</label>
         <input type="text" id="description" name="description" required>
+        <input type="hidden" id="version" name="version" value="4" />
         <input type="submit" value="Insert!">
     </form>
 
     <h1>Delete equipment:</h1>
     <form method="POST">
-        <label for="deleteName">Equipment name:</label>
-        <input type="text" id="deleteName" name="deleteName" required>
+        <label for="deleteId">Equipment id:</label>
+        <input type="text" id="deleteId" name="deleteId" required>
         <input type="submit" value="Delete">
     </form>
 
     <h1>Update equipment:</h1>
     <form method="POST">
+        <label for="updateId">Equipment id:</label>
+        <input type="text" id="updateId" name="updateId" required>
+        <br>
         <label for="updateName">Equipment name:</label>
         <input type="text" id="updateName" name="updateName" required>
         <br>

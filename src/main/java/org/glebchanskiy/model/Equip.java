@@ -1,21 +1,16 @@
 package org.glebchanskiy.model;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
-public class Equip {
+@AllArgsConstructor
+public class Equip implements Entity {
     private Integer id;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private String description;
 
     @Override

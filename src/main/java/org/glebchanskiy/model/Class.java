@@ -4,15 +4,13 @@ package org.glebchanskiy.model;
 import lombok.*;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
-public class Class {
+@AllArgsConstructor
+public class Class implements Entity{
     private Integer id;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private String description;
 
     @Override

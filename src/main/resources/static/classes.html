@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    {for class in classes : {<li>{class.name} - {class.description}</li>}}
+    {for class in classes : {<li>{class.id} : {class.name} - {class.description}</li>}}
 
     <h1>Add class:</h1>
     <form method="POST">
@@ -22,14 +22,17 @@
 
     <h1>Delete class:</h1>
     <form method="POST">
-        <label for="deleteName">Class name:</label>
-        <input type="text" id="deleteName" name="deleteName" required>
+        <label for="deleteId">Class id:</label>
+        <input type="text" id="deleteId" name="deleteId" required>
         <br>
         <input type="submit" value="Delete">
     </form>
 
     <h1>Update class:</h1>
     <form method="POST">
+        <label for="updateId">Class id:</label>
+        <input type="text" id="updateId" name="updateId" required>
+        <br>
         <label for="updateName">Class name:</label>
         <input type="text" id="updateName" name="updateName" required>
         <br>

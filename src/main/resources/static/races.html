@@ -2,43 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Предыстория</title>
+    <title>Расы</title>
     <link rel="stylesheet" href="/assets/style.css"/>
 </head>
 <body>
 
-    {for background in backgrounds : {<li>{background.name} - {background.description}</li>}}
+    {for race in races : {<li>{race.id} : {race.name} - {race.description}</li>}}
 
-    <h2>Add background:</h2>
+    <h1>Add race:</h1>
     <form method="POST">
-        <label for="name">Background name:</label>
+        <label for="name">Race name:</label>
         <input type="text" id="name" name="name" required>
         <br>
-        <label for="description">Background description:</label>
+        <label for="description">Race description:</label>
         <input type="text" id="description" name="description" required>
         <br>
         <input type="submit" value="Insert!">
     </form>
 
-    <h2>Delete background:</h2>
+    <h1>Delete race:</h1>
     <form method="POST">
-        <label for="deleteName">Background name:</label>
-        <input type="text" id="deleteName" name="deleteName" required>
+        <label for="deleteId">Race id:</label>
+        <input type="text" id="deleteId" name="deleteId" required>
         <br>
         <input type="submit" value="Delete">
     </form>
 
-    <h2>Update background:</h2>
+    <h1>Update race:</h1>
     <form method="POST">
-        <label for="updateName">Background name:</label>
+        <label for="updateId">Race id:</label>
+        <input type="text" id="updateId" name="updateId" required>
+        <br>
+        <label for="updateName">Race name:</label>
         <input type="text" id="updateName" name="updateName" required>
         <br>
-        <label for="updateDescription">Background description:</label>
+        <label for="updateDescription">Race description:</label>
         <input type="text" id="updateDescription" name="updateDescription" required>
         <br>
         <input type="submit" value="Update">
     </form>
-
 
 </body>
 </html>

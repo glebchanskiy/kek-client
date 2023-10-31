@@ -1,31 +1,32 @@
 package org.glebchanskiy.controller;
 
-import org.glebchanskiy.dao.*;
 import org.glebchanskiy.kek.router.controllers.TemplateController;
 import org.glebchanskiy.kek.utils.Request;
 import org.glebchanskiy.kek.utils.Response;
-import org.glebchanskiy.model.Char;
+import org.glebchanskiy.model.*;
+import org.glebchanskiy.model.Class;
+import org.glebchanskiy.requester.Requester;
 
 public class CharController extends TemplateController {
-    public CharController(String route, CharDAO charDAO, RaceDAO raceDAO, CharClassDAO charClassDAO, BackgroundDAO backgroundDAO) {
+    public CharController(String route) {
         super(route);
-        this.charDAO = charDAO;
-        this.raceDAO = raceDAO;
-        this.charClassDAO = charClassDAO;
-        this.backgroundDAO = backgroundDAO;
+        this.charRequester = new Requester<>(getRoute(), Char.class);
+        this.raceRequester = new Requester<>("/races", Race.class);
+        this.charClassRequester = new Requester<>("/classes", Class.class);
+        this.backRequester = new Requester<>("/backs", Background.class);
+        this.equipRequester = new Requester<>("/equips", Equip.class);
     }
 
-    private final CharDAO charDAO;
-    private final RaceDAO raceDAO;
-    private final CharClassDAO charClassDAO;
-    private final BackgroundDAO backgroundDAO;
+    private final Requester<Char> charRequester;
+    private final Requester<Race> raceRequester;
+    private final Requester<Class> charClassRequester;
+    private final Requester<Background> backRequester;
+    private final Requester<Equip> equipRequester;
 
     @Override
     public Response getMapping(Request request) {
-        var cls = charDAO.findAll();
-        model.put("chars", cls);
-        System.out.println("classDAO.findAll(): " + cls);
-        return template("/char.html");
+        model.put("chars", charRequester.findAll());
+        return template( getRoute() + ".html");
     }
 
     @Override
@@ -40,43 +41,64 @@ public class CharController extends TemplateController {
 
         if (name != null && description != null && race != null && background != null && charClass != null) {
             Char character = new Char();
+            System.out.println("character: " + character);
 
-            character.setRace(raceDAO.findByName(race));
-            character.setCharClass(charClassDAO.findByName(charClass));
-            character.setBackground(backgroundDAO.findByName(background));
+            character.setRace(raceRequester.findByName(race));
+            System.out.println("character: " + character);
+            character.setCharClass(charClassRequester.findByName(charClass));
+            System.out.println("character: " + character);
+            character.setBackground(backRequester.findByName(background));
+            System.out.println("character: " + character);
             character.setDescription(description);
+            System.out.println("character: " + character);
             character.setName(name);
-            charDAO.insert(character);
+            System.out.println("character: " + character);
+
+            charRequester.insert(character);
         }
 
-        String deleteName = formData.get("deleteName");
+        String deleteId = formData.get("deleteId");
 
-        if (deleteName != null) {
-            System.out.println("DELETE = " + deleteName);
-            charDAO.deleteByName(deleteName);
+        if (deleteId != null) {
+            System.out.println("DELETE = " + deleteId);
+            charRequester.deleteById(Integer.parseInt(deleteId));
         }
 
+        String updateId = formData.get("updateId");
         String updateName = formData.get("updateName");
         String updateRace = formData.get("updateRace");
         String updateClass = formData.get("updateClass");
         String updateDescription = formData.get("updateDescription");
         String updateBackground = formData.get("updateBackground");
 
-        if (updateName != null && updateRace != null && updateClass != null && updateDescription != null && updateBackground != null) {
-            Char character = new Char();
+        System.out.println(updateId);
+        System.out.println(updateName);
+        System.out.println(updateRace);
+        System.out.println(updateClass);
+        System.out.println(updateDescription);
+        System.out.println(updateBackground);
 
-            character.setRace(raceDAO.findByName(updateRace));
-            character.setCharClass(charClassDAO.findByName(updateClass));
-            character.setBackground(backgroundDAO.findByName(updateBackground));
+        if (updateId != null && updateName != null && updateRace != null && updateClass != null && updateDescription != null && updateBackground != null) {
+            Char character = new Char();
+            character.setId(Integer.parseInt(updateId));
+            System.out.println("character: " + character);
+            character.setRace(raceRequester.findByName(updateRace));
+            System.out.println("character: " + character);
+            character.setCharClass(charClassRequester.findByName(updateClass));
+            System.out.println("character: " + character);
+            character.setBackground(backRequester.findByName(updateBackground));
+            System.out.println("character: " + character);
             character.setDescription(updateDescription);
+            System.out.println("character: " + character);
             character.setName(updateName);
 
-            charDAO.updateByName(character);
+            System.out.println("character: " + character);
+            charRequester.update(Integer.parseInt(updateId), character);
         }
 
-        var cls = charDAO.findAll();
+        var cls = charRequester.findAll();
         model.put("chars", cls);
 
-        return template("/char.html");
+        return template(getRoute() + ".html");
     }
 }

@@ -1,3 +1,4 @@
-port: 8080
+port: 88
 cors: "*"
+hostname: localhost
 location: /Users/glebchanskiy/subjects/aipos/kek-application/src/main/resources/static

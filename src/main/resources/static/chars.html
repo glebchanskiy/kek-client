@@ -9,9 +9,9 @@
 
     <table>
         <tr>
-            <th>Имя</th><th>Класс</th><th>Раса</th><th>Описание</th><th>Предыстория</th><th>Экипировка</th></header>
+            <th>ID</th><th>Имя</th><th>Класс</th><th>Раса</th><th>Описание</th><th>Предыстория</th><th>Экипировка</th></header>
         </tr>
-        {for character in chars : {<tr><td>{character.name}</td> <td>{character.charClass}</td> <td>{character.race}</td> <td>{character.description}</td> <td>{character.background}</td> <td>{character.equips}</td></tr>}}
+        {for character in chars : {<tr><td>{character.id}</td> <td>{character.name}</td> <td>{character.charClass}</td> <td>{character.race}</td> <td>{character.description}</td> <td>{character.background}</td> <td>{character.equips}</td></tr>}}
     </table>
 
 
@@ -38,14 +38,17 @@
 
     <h1>Delete char:</h1>
     <form method="POST">
-        <label for="deleteName">Char name:</label>
-        <input type="text" id="deleteName" name="deleteName" required>
+        <label for="deleteId">Char id:</label>
+        <input type="text" id="deleteId" name="deleteId" required>
         <br>
         <input type="submit" value="Delete">
     </form>
 
     <h1>Update char:</h1>
     <form method="POST">
+        <label for="updateId">Char id:</label>
+        <input type="text" id="updateId" name="updateId" required>
+        <br>
         <label for="updateName">Char name:</label>
         <input type="text" id="updateName" name="updateName" required>
         <br>
